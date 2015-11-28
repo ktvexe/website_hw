@@ -1,0 +1,388 @@
+<!--
+*my personal website hw
+*author LG Liu
+*version 1.0
+*
+*link https://github.com/ktvexe/website_hw/tree/master/hw1
+-->
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="shortcut icon" href="img/csie_icon.ico">
+	<title>my photo gallery</title>
+	<style type="text/css">
+	</style>
+</head>
+
+<script language="javascript">
+
+	var Max_size = 20;
+	var index = 0;
+	var Max_mus = 3;
+	var musindex = 0;
+	
+
+	function init_gallery(imageNum){
+		var up_div = document.getElementById("content_photo");
+			document.getElementById("content_head").style.height="100px";
+		up_div.innerHTML="";
+		for(var i = 0 ; i < imageNum ; ++i ){
+			var tmpt_img = document.createElement("IMG");
+			tmpt_img.setAttribute("id","img_"+i);
+			tmpt_img.setAttribute("src","./img/"+i+".jpg");
+			tmpt_img.setAttribute("alt",i);
+			tmpt_img.setAttribute("height","150px");
+			tmpt_img.setAttribute("onmouseover","bold(this)");
+			tmpt_img.setAttribute("onmouseout","non_bold(this)");
+			tmpt_img.setAttribute("onclick","change_main_show(this)");
+			
+			var tmpt_div = document.createElement("div");
+			tmpt_div.setAttribute("id","div_img_"+i);
+			tmpt_div.setAttribute("class","photo_div");
+			
+			tmpt_div.appendChild(tmpt_img);
+			up_div.appendChild(tmpt_div);
+		}
+	}
+	
+	//反白	
+	function bold(img_obj){
+		img_obj.style.opacity = "0.5";
+	}
+	
+	function non_bold(img_obj){
+		img_obj.style.opacity = "1.0";
+	}
+	
+	function change_main_show(img_obj){
+	var tmpt_src = img_obj.src;
+	var tmpt_alt = img_obj.alt;
+	index = parseInt(tmpt_alt);
+		document.getElementById("content_head").style.height="55px";
+	var now = document.getElementById("content_photo");
+	now.innerHTML = "";
+	
+		var main_slide = document.createElement("div");
+		main_slide.setAttribute("id","S_lide");
+		
+		var left_slide = document.createElement("div");
+		left_slide.setAttribute("id","Sleft");
+		left_slide.setAttribute("onclick","left()");
+		left_slide.style.cursor="pointer";
+		
+			var d_l = document.createElement("IMG");
+			left_slide.appendChild(d_l);
+			d_l.setAttribute("id","du_left");
+			d_l.setAttribute("width","100");
+			d_l.setAttribute("height","100");
+			d_l.setAttribute("src","img/left.png");
+			d_l.setAttribute("alt","left");
+		
+		var middle_slide = document.createElement("div");
+		middle_slide.setAttribute("id","Smiddle");
+		
+			var slide_photo = document.createElement("div");
+			slide_photo.setAttribute("id","S_photo");
+			
+				var photo = document.createElement("IMG");
+				photo.setAttribute("id","display_photo");
+				photo.src = tmpt_src;
+				photo.alt = tmpt_alt;
+				
+				photo.setAttribute("onclick","zoom_in(this)");
+				slide_photo.appendChild(photo);
+			
+						
+			var small_list = document.createElement("div");
+			small_list.setAttribute("id","S_list_show");
+			
+				var para = document.createElement("P");
+				para.style.textAlign="center";
+				
+				var t = document.createTextNode("change picture time");
+				para.appendChild(t);
+				small_list.appendChild(para);
+				
+				var sec =document.createElement("select");
+				sec.setAttribute("id","secinput");
+				para.insertBefore(sec,null);
+				
+				for (var i = 1; i < 6; i++) {
+				var option = document.createElement("option");
+				option.value = i;
+				option.text = i+"s";
+				sec.appendChild(option);
+				}
+				
+												
+				var butt_list = document.createElement("div");
+				small_list.appendChild(butt_list);
+				butt_list.setAttribute("class","button_list");
+				
+					var a_butt = document.createElement("div");
+					butt_list.appendChild(a_butt);
+					a_butt.setAttribute("class","a_button");
+						
+						var a_img = document.createElement("IMG");
+						a_butt.appendChild(a_img);
+						a_img.setAttribute("id","back_button");
+						a_img.setAttribute("title","go back");
+						a_img.setAttribute("onclick","init_gallery(Max_size)");
+						a_img.setAttribute("width","100");
+						a_img.setAttribute("height","100");
+						a_img.src="img/return.png";
+						a_img.alt="back";
+						a_img.style.cursor="pointer";
+					
+					a_butt = document.createElement("div");
+					butt_list.appendChild(a_butt);
+					a_butt.setAttribute("class","a_button");
+						
+						a_img = document.createElement("IMG");
+						a_butt.appendChild(a_img);
+						a_img.setAttribute("id","play_button");
+						a_img.setAttribute("title","play");
+						a_img.setAttribute("onclick","play()");
+						a_img.setAttribute("value","summit");
+						a_img.setAttribute("width","100");
+						a_img.setAttribute("height","100");
+						a_img.src="img/play.png";
+						a_img.alt="play";
+						a_img.style.cursor="pointer";
+
+					var a_butt = document.createElement("div");
+					butt_list.appendChild(a_butt);
+					a_butt.setAttribute("class","a_button");
+						
+						var a_img = document.createElement("IMG");
+						a_butt.appendChild(a_img);
+						a_img.setAttribute("id","stop_button");
+						a_img.setAttribute("title","stop to play");
+						a_img.setAttribute("width","100");
+						a_img.setAttribute("height","100");
+						a_img.src="img/pause.png";
+						a_img.alt="pause";
+						a_img.style.cursor="initial";	
+
+					var a_butt = document.createElement("div");
+					butt_list.appendChild(a_butt);
+					a_butt.setAttribute("class","a_button");
+						
+					//	var ahref = document.createElement("a");
+						//ahref.href=photo.src;
+						//ahref.download =photo.alt;
+						//ahref.setAttribute("href","./img/"+index+".jpg");
+						//ahref.setAttribute("download",index);
+					//	ahref.setAttribute("href","onDownload();");
+						
+					//	a_butt.appendChild(ahref);
+						
+						var a_img = document.createElement("IMG");
+					//	ahref.appendChild(a_img);
+						a_butt.appendChild(a_img);
+						a_img.setAttribute("id","download_button");
+						a_img.setAttribute("title","download picture");
+						a_img.setAttribute("width","100");
+						a_img.setAttribute("height","100");
+						a_img.setAttribute("onclick","onDownload()");
+						a_img.style.cursor="pointer";
+						a_img.src="img/download.png";
+						
+					var a_butt = document.createElement("div");
+					butt_list.appendChild(a_butt);
+					a_butt.setAttribute("class","a_button");
+						
+						var a_img = document.createElement("IMG");
+						a_butt.appendChild(a_img);
+						a_img.setAttribute("id","select_button");
+						a_img.setAttribute("title","select for background");
+						a_img.setAttribute("width","100");
+						a_img.setAttribute("height","100");
+						a_img.setAttribute("onclick","bg()");
+						a_img.style.cursor="pointer";
+						a_img.src="img/select.png";	
+
+			
+			middle_slide.appendChild(slide_photo);
+			middle_slide.appendChild(small_list);
+		
+		var right_slide = document.createElement("div");
+		right_slide.setAttribute("id","Sright");
+		right_slide.setAttribute("onclick","right()");
+		right_slide.style.cursor="pointer";
+		
+			var d_r = document.createElement("IMG");
+			right_slide.appendChild(d_r);
+			d_r.setAttribute("width","100");
+			d_r.setAttribute("height","100");
+			d_r.setAttribute("id","du_right");
+			d_r.setAttribute("src","img/right.png");
+			d_r.setAttribute("alt","right");
+		
+		main_slide.appendChild(left_slide);
+		main_slide.appendChild(middle_slide);
+		main_slide.appendChild(right_slide);
+		
+		now.appendChild(main_slide);
+	
+	}
+
+	function left(){
+		index = (index+Max_size-1)%Max_size;
+		var now = document.getElementById("display_photo");
+		now.src = "img/"+index+".jpg";
+	}
+	
+	function right(){	
+		index = (index+Max_size+1)%Max_size;
+		var now = document.getElementById("display_photo");
+		now.src = "img/"+index+".jpg";
+	}
+	
+	function zoom_in(img){
+		if( !document.getElementById("upper_photo") ){
+			var news = document.createElement("div");
+			news.setAttribute("id","upper_view");
+			news.setAttribute("onclick","zoom_out(this)");
+			
+			news.style.height="100%";
+			news.style.width="100%";
+			news.style.backgroundColor="rgba(0,0,0,0.8)";
+			news.style.display="block";
+			news.style.position="fixed";
+			news.style.top="0px";
+			news.style.zIndex="4";
+			
+			var photo = document.createElement("IMG");
+			photo.setAttribute("id","upper_photo");
+			photo.style.zIndex="4";
+			photo.src = img.src;
+			photo.style.height="600px";
+			photo.style.width="auto";
+			photo.style.opacity="1.0";
+			photo.style.display="block";
+			
+			photo.style.cursor="zoom-out";
+			
+			photo.style.marginTop="1.5%";
+			photo.style.marginBottom="auto";
+			
+			photo.style.marginLeft="auto";
+			photo.style.marginRight="auto";
+			
+			photo.style.paddingLeft="100px";
+			photo.style.paddingRight="100px";
+			photo.style.paddingTop="0px";
+			photo.style.paddingBottom="0px";
+			
+
+			
+			news.appendChild(photo);
+			
+			document.body.appendChild(news);
+		}
+	}
+	
+	function zoom_out(input){
+		document.body.removeChild(input);
+	}
+	
+	var myVar;
+	
+	function play_right()
+	{
+		right();
+		var input =document.getElementById("secinput")
+		var time = 1000 * input.value;
+		myVar = setTimeout("play()",time);
+	}
+	
+	function play(){
+		var play = document.getElementById("play_button");
+		play.style.cursor="initial";
+		play.setAttribute("onclick","");
+		
+		var stop = document.getElementById("stop_button");
+		stop.style.cursor="pointer";
+		stop.setAttribute("onclick","stop()");
+		
+		play_right();
+	}
+	
+	function stop(){
+		var play = document.getElementById("play_button");
+		play.style.cursor="pointer";
+		play.setAttribute("onclick","play()");
+		
+		var stop = document.getElementById("stop_button");
+		stop.style.cursor="initial";
+		stop.setAttribute("onclick","");
+		
+		clearTimeout(myVar);
+	}
+	
+	function onDownload(){
+	/*
+		var hiddenIFrameID = 'hiddenDownloader' + index;
+		var iframe = document.createElement('iframe');
+		iframe.id = hiddenIFrameID;
+		iframe.style.display = 'none';
+		document.body.appendChild(iframe);
+		iframe.src = "./img/"+index+".jpg";
+	*/
+		var a = document.createElement('a');
+		a.href = "./img/"+index+".jpg";
+		a.download = index;
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+	}
+	
+	function musicchange(){
+		var mus = document.getElementById("music");
+		musindex = (musindex+1)%Max_mus;
+		mus.src ="./res/"+musindex+".mp3"
+	}
+	
+	function recover(){
+		 location.reload()
+	}
+	
+	function bg(){
+		document.getElementById("S_lide").style.backgroundImage = "url('./img/"+index+".jpg')";
+		document.getElementById("content_photo").style.backgroundImage = "url('./img/"+index+".jpg')";
+	}
+
+</script>
+
+<body>
+	<div id="main_page">
+	
+		<div class="top-bar">
+                <div class="top_area">
+					<div class="top_logo"><a href="#" ><img src="img/guguwesite.png" width="295" height="100" alt="" onClick="init_gallery(Max_size);"/></a>
+					</div>
+				</div>
+				
+				<audio controls id="music">
+					<source src="res/0.mp3" type="audio/mpeg">
+				</audio>
+				<img src="img/change.png" width="60" height="30" alt="" onClick="musicchange();" onmouseover="bold(this)"onmouseout="non_bold(this)">
+				<img src="img/recover.png" width="50" height="40" alt="" onClick="recover();" onmouseover="bold(this)"onmouseout="non_bold(this)">
+        </div>
+		
+		<div  id="head_photo">
+			<div id="content_head">
+			</div>
+			<div id="content_photo">
+				<script language="javascript">
+					init_gallery(Max_size);
+				</script>
+			</div>
+		</div>
+	</div>
+	<div class="copyright"><p><a  href="https://github.com/ktvexe/website_hw/tree/master/hw1">亮亮網頁作業 </a></p></div>
+</body>
+</html>
