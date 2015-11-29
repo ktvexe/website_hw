@@ -13,9 +13,11 @@ ol, ul, li {
 body {
 	line-height: 1;
 	background-color:#e6e6fa;
+
 }
 ol, ul {
 	list-style: none;
+	
 }
 
 
@@ -91,7 +93,21 @@ table ,th {
 	font-family:  Helvetica, Arial, sans-serif;
 	font-size:12px;
 }
-		
+	
+.bottons{
+	position: relative;
+	top:20px;
+	left:50px;
+
+}
+
+/* ?? ?? */
+ul.navigation li {
+    position: relative;
+    float: left;
+}
+
+	
 #main_page{
 	height:auto;
 	width:auto;
@@ -116,7 +132,7 @@ table ,th {
 		display:block;
 		height:auto;
 		max-height:1800px;
-		overflow:hidden;
+		overflow:auto;
 		padding-bottom:10px;
 		z-index:0;
 }
@@ -190,6 +206,11 @@ table ,th {
 		margin-right:auto;
 		cursor:zoom-in;
 }
+	
+#music{
+		
+		margin-left:10px;
+}	
 	
 .button_list{
 		display:block;

@@ -24,7 +24,7 @@
 	var Max_mus = 3;
 	var musindex = 0;
 	
-
+//initial page
 	function init_gallery(imageNum){
 		var up_div = document.getElementById("content_photo");
 			document.getElementById("content_head").style.height="100px";
@@ -56,7 +56,7 @@
 	function non_bold(img_obj){
 		img_obj.style.opacity = "1.0";
 	}
-	
+	//change photo
 	function change_main_show(img_obj){
 	var tmpt_src = img_obj.src;
 	var tmpt_alt = img_obj.alt;
@@ -68,6 +68,7 @@
 		var main_slide = document.createElement("div");
 		main_slide.setAttribute("id","S_lide");
 		
+		//left part
 		var left_slide = document.createElement("div");
 		left_slide.setAttribute("id","Sleft");
 		left_slide.setAttribute("onclick","left()");
@@ -81,6 +82,7 @@
 			d_l.setAttribute("src","img/left.png");
 			d_l.setAttribute("alt","left");
 		
+		//middle part
 		var middle_slide = document.createElement("div");
 		middle_slide.setAttribute("id","Smiddle");
 		
@@ -171,17 +173,7 @@
 					butt_list.appendChild(a_butt);
 					a_butt.setAttribute("class","a_button");
 						
-					//	var ahref = document.createElement("a");
-						//ahref.href=photo.src;
-						//ahref.download =photo.alt;
-						//ahref.setAttribute("href","./img/"+index+".jpg");
-						//ahref.setAttribute("download",index);
-					//	ahref.setAttribute("href","onDownload();");
-						
-					//	a_butt.appendChild(ahref);
-						
 						var a_img = document.createElement("IMG");
-					//	ahref.appendChild(a_img);
 						a_butt.appendChild(a_img);
 						a_img.setAttribute("id","download_button");
 						a_img.setAttribute("title","download picture");
@@ -209,6 +201,7 @@
 			middle_slide.appendChild(slide_photo);
 			middle_slide.appendChild(small_list);
 		
+		//right part
 		var right_slide = document.createElement("div");
 		right_slide.setAttribute("id","Sright");
 		right_slide.setAttribute("onclick","right()");
@@ -222,6 +215,7 @@
 			d_r.setAttribute("src","img/right.png");
 			d_r.setAttribute("alt","right");
 		
+		//append all part
 		main_slide.appendChild(left_slide);
 		main_slide.appendChild(middle_slide);
 		main_slide.appendChild(right_slide);
@@ -229,19 +223,19 @@
 		now.appendChild(main_slide);
 	
 	}
-
+	//left move
 	function left(){
 		index = (index+Max_size-1)%Max_size;
 		var now = document.getElementById("display_photo");
 		now.src = "img/"+index+".jpg";
 	}
-	
+	//right move
 	function right(){	
 		index = (index+Max_size+1)%Max_size;
 		var now = document.getElementById("display_photo");
 		now.src = "img/"+index+".jpg";
 	}
-	
+	//zoom in
 	function zoom_in(img){
 		if( !document.getElementById("upper_photo") ){
 			var news = document.createElement("div");
@@ -285,7 +279,7 @@
 			document.body.appendChild(news);
 		}
 	}
-	
+	//zoom out
 	function zoom_out(input){
 		document.body.removeChild(input);
 	}
@@ -325,14 +319,6 @@
 	}
 	
 	function onDownload(){
-	/*
-		var hiddenIFrameID = 'hiddenDownloader' + index;
-		var iframe = document.createElement('iframe');
-		iframe.id = hiddenIFrameID;
-		iframe.style.display = 'none';
-		document.body.appendChild(iframe);
-		iframe.src = "./img/"+index+".jpg";
-	*/
 		var a = document.createElement('a');
 		a.href = "./img/"+index+".jpg";
 		a.download = index;
@@ -340,7 +326,7 @@
 		a.click();
 		document.body.removeChild(a);
 	}
-	
+	//change music
 	function musicchange(){
 		var mus = document.getElementById("music");
 		musindex = (musindex+1)%Max_mus;
@@ -350,7 +336,7 @@
 	function recover(){
 		 location.reload()
 	}
-	
+	//change background
 	function bg(){
 		document.getElementById("S_lide").style.backgroundImage = "url('./img/"+index+".jpg')";
 		document.getElementById("content_photo").style.backgroundImage = "url('./img/"+index+".jpg')";
@@ -365,13 +351,21 @@
                 <div class="top_area">
 					<div class="top_logo"><a href="#" ><img src="img/guguwesite.png" width="295" height="100" alt="" onClick="init_gallery(Max_size);"/></a>
 					</div>
+					<div class="bottons">
+						<ul class="navigation">
+							<li>
+								<audio controls id="music">
+									<source src="res/0.mp3" type="audio/mpeg">
+								</audio>
+							</li>
+							<li> <img src="img/change.png" id="music" width="60" height="30" alt="" onClick="musicchange();" onmouseover="bold(this)"onmouseout="non_bold(this)"></a>
+							</li>
+							<li><img src="img/recover.png" id="music" width="50" height="40" alt="" onClick="recover();" onmouseover="bold(this)"onmouseout="non_bold(this)"></a>
+							</li>
+							
+						</ul>
+					</div>
 				</div>
-				
-				<audio controls id="music">
-					<source src="res/0.mp3" type="audio/mpeg">
-				</audio>
-				<img src="img/change.png" width="60" height="30" alt="" onClick="musicchange();" onmouseover="bold(this)"onmouseout="non_bold(this)">
-				<img src="img/recover.png" width="50" height="40" alt="" onClick="recover();" onmouseover="bold(this)"onmouseout="non_bold(this)">
         </div>
 		
 		<div  id="head_photo">
